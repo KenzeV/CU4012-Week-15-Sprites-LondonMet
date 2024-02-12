@@ -5,13 +5,45 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 	window = hwnd;
 	input = in;
 
+	
+
 	// initialise game objects
 	texture.loadFromFile("gfx/Mushroom.png");
-
+	
 	testSprite.setTexture(&texture);
 	testSprite.setSize(sf::Vector2f(100, 100));
 	testSprite.setPosition(100, 100);
 
+
+	//loading of player texture 
+	PlayerTex.loadFromFile("gfx/Goomba.png");
+
+	// player texture initialisation
+	playerSprite.setTexture(&PlayerTex);
+	playerSprite.setSize(sf::Vector2f(100, 100));
+	playerSprite.setPosition(300, 300);
+
+	playerSprite.setVelocity(sf::Vector2f(100, 0));
+	playerSprite.setInput(input);
+
+	e1Tex.loadFromFile("gfx/enemy1.png");
+	e2Tex.loadFromFile("gfx/enemy2.png");
+
+	e1.setTexture(&e1Tex);
+	e1.setSize(sf::Vector2f(100, 100));
+	e1.setPosition(500, 500);
+
+	e2.setTexture(&e2Tex);
+	e2.setSize(sf::Vector2f(100, 100));
+	e2.setPosition(300, 300);
+
+	move = sf::Vector2f(300, 0);
+	move1 = sf::Vector2f(0, 300);
+
+	e1.setWindow(window);
+	e2.setWindow(window);
+
+	
 }
 
 Level::~Level()
@@ -27,12 +59,15 @@ void Level::handleInput(float dt)
 	{
 		window->close();
 	}
+	playerSprite.handleInput(dt);
 
 }
 
 // Update game objects
 void Level::update(float dt)
 {
+	e1.update(dt, move);
+	e2.update(dt, move1);
 	
 }
 
@@ -40,8 +75,10 @@ void Level::update(float dt)
 void Level::render()
 {
 	beginDraw();
-
+	window->draw(playerSprite);
 	window->draw(testSprite);
+	window->draw(e1);
+	window->draw(e2);
 
 	endDraw();
 }

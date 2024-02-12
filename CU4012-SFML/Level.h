@@ -4,6 +4,8 @@
 #include "Framework/BaseLevel.h"
 #include "Framework/Input.h"
 #include "Framework/GameObject.h"
+#include "Enemy.h"
+#include "Player.h"
 #include <string.h>
 #include <iostream>
 
@@ -22,4 +24,13 @@ private:
 	GameObject testSprite;
 	sf::Texture texture;
 
+	Player playerSprite;
+	sf::Texture PlayerTex;
+
+	//Enemy Objects
+
+	Enemy e1, e2;
+	sf::Texture e1Tex, e2Tex;
+
+	sf::Vector2f move, move1;
 };
